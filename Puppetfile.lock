@@ -1,26 +1,10 @@
-GIT
-  remote: git@bitbucket.org:dborges/premierinc-filesys.git
-  ref: master
-  sha: 9e8b9ba7324e3ae69af1f1217fa0d7926d4007bb
+FORGE
+  remote: http://forge.puppetlabs.com
   specs:
-    filesys (0.0.1)
-
-GIT
-  remote: git@bitbucket.org:dborges/puppet-jboss.git
-  ref: master
-  sha: 2f66e9267fd1124222ef007819977dd557227822
-  specs:
-    jboss (0.0.1)
-
-GIT
-  remote: https://github.com/maestrodev/puppet-wget.git
-  ref: master
-  sha: 7b8fcbf7ffd35f7555c0e9748bc2cc8e36209c57
-  specs:
-    wget (1.2.3)
+    maestrodev/wget (1.2.2)
+    puppetlabs/stdlib (4.1.0)
 
 DEPENDENCIES
-  filesys (>= 0)
-  jboss (>= 0)
-  wget (>= 0)
+  maestrodev/wget (~> 1.2.2)
+  puppetlabs/stdlib (~> 4.1.0)
 

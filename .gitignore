@@ -1,5 +1,7 @@
 spec/fixtures/files/*.zip
 spec/fixtures/files/*.tar.gz
+spec/fixtures/modules/
+spec/fixtures/manifests/site.pp
 .tmp/
 .librarian/
 .rspec_system/
