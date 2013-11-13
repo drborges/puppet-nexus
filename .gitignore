@@ -1,0 +1,5 @@
+spec/fixtures/files/*.zip
+spec/fixtures/files/*.tar.gz
+.tmp/
+.librarian/
+.rspec_system/

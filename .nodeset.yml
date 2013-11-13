@@ -1,0 +1,15 @@
+---
+default_set: 'centos'
+sets:
+  'centos':
+    nodes:
+      'node':
+        prefab: 'centos-64-x64'
+        options:
+          ip: '192.168.57.100'
+  'ubuntu':
+    nodes:
+      'node':
+        prefab: 'ubuntu-server-1204-x64'
+        options:
+          ip: '192.168.57.100'
