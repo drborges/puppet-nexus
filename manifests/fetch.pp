@@ -17,11 +17,15 @@ define nexus::fetch(
   if (empty($artifact_id)) { fail('missing :artifact_id parameter') }
   if (empty($group_id)) { fail('missing :group_id parameter') }
 
-  # TODO create function to build API endpoint
-  $api_path = '/service/local/artifact/maven/redirect'
-  $query = "?r=${repository}&g=${group_id}&a=${artifact_id}&v=${version}"
-  $artifact_url = "${nexus_url}${api_path}${query}"
+  $nexus_info = {
+    url         => $nexus_url,
+    repository  => $repository,
+    group_id    => $group_id,
+    artifact_id => $artifact_id,
+    version     => $version,
+  }
 
+  $artifact_url = artifact_url($nexus_info)
   if (empty($username) or empty($password)) {
     wget::fetch { "fetch ${title}":
       source      => $artifact_url,
