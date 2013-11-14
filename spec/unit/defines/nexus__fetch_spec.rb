@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nexus::fetch', :type => :define do
   let(:title) { 'myartifact' }
-  let(:defaults) {{
+  let(:params) {{
     artifact_id: 'junit',
     group_id: 'org.junit',
     version: '1.1.0',
@@ -18,7 +18,7 @@ describe 'nexus::fetch', :type => :define do
 
   context 'errors out with invalid parameters' do
     context 'when :artifact_id => empty' do
-      let(:params) { defaults.merge({ artifact_id: '' }) }
+      let(:params) { super().merge({ artifact_id: '' }) }
       it {
         expect {
           should have_resource_count(0)
@@ -27,7 +27,7 @@ describe 'nexus::fetch', :type => :define do
     end
 
     context 'when :group_id => empty' do
-      let(:params) { defaults.merge({ group_id: '' }) }
+      let(:params) { super().merge({ group_id: '' }) }
       it {
         expect {
           should have_resource_count(0)
@@ -38,7 +38,7 @@ describe 'nexus::fetch', :type => :define do
 
   context 'parameters default to' do
     context ":version => 'LATEST'" do
-      let(:params) { defaults.select { |k, v| k != :version } }
+      let(:params) { super().select { |k, v| k != :version } }
       it {
         artifact_url = expected_artifact_url(
           params[:nexus_url],
@@ -53,7 +53,7 @@ describe 'nexus::fetch', :type => :define do
     end
 
     context ":nexus_url => 'http://repository.sonatype.org'" do
-      let(:params) { defaults.select { |k, v| k != :nexus_url } }
+      let(:params) { super().select { |k, v| k != :nexus_url } }
       it {
         artifact_url = expected_artifact_url(
          'http://repository.sonatype.org',
@@ -68,7 +68,7 @@ describe 'nexus::fetch', :type => :define do
     end
 
     context ":repository => 'release'" do
-      let(:params) { defaults.select { |k, v| k != :repository } }
+      let(:params) { super().select { |k, v| k != :repository } }
       it {
         artifact_url = expected_artifact_url(
           params[:nexus_url],
@@ -83,7 +83,7 @@ describe 'nexus::fetch', :type => :define do
     end
 
     context ":deploy_at => '/tmp'" do
-      let(:params) { defaults.select { |k, v| k != :deploy_at } }
+      let(:params) { super().select { |k, v| k != :deploy_at } }
       it {
         should contain_wget__fetch("fetch #{title}")
         .with_destination('/tmp')
@@ -91,7 +91,7 @@ describe 'nexus::fetch', :type => :define do
     end
 
     context ":timeout => 0" do
-      let(:params) { defaults.select { |k, v| k != :timeout } }
+      let(:params) { super().select { |k, v| k != :timeout } }
       it {
         should contain_wget__fetch("fetch #{title}")
         .with_timeout(0)
@@ -101,7 +101,7 @@ describe 'nexus::fetch', :type => :define do
 
   context 'without authentication' do
     context 'when :username => empty' do
-      let(:params) { defaults.merge({ username: '', password: 'secret' }) }
+      let(:params) { super().merge({ username: '', password: 'secret' }) }
       it {
         artifact_url = expected_artifact_url(
           params[:nexus_url],
@@ -120,7 +120,7 @@ describe 'nexus::fetch', :type => :define do
     end
 
     context 'when :password => empty' do
-      let(:params) { defaults.merge({ username: 'diego', password: '' }) }
+      let(:params) { super().merge({ username: 'diego', password: '' }) }
       it {
         artifact_url = expected_artifact_url(
           params[:nexus_url],
@@ -141,7 +141,7 @@ describe 'nexus::fetch', :type => :define do
 
   context 'with authentication' do
     context 'when :username != empty and :password != empty' do
-      let(:params) { defaults.merge({ username: 'diego', password: 'secret' }) }
+      let(:params) { super().merge({ username: 'diego', password: 'secret' }) }
       it {
         artifact_url = expected_artifact_url(
           params[:nexus_url],
@@ -158,7 +158,6 @@ describe 'nexus::fetch', :type => :define do
         .with_timeout(params[:timeout])
         .with_user(params[:username])
         .with_password(params[:password])
-
       }
     end
   end

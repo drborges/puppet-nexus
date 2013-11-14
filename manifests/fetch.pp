@@ -1,4 +1,8 @@
 #
+# TODO implement function to extract from $title
+# the artifact_id, group_id, and version
+# - towards simplicity, this will allow the user
+# to omit these three parameters
 define nexus::fetch(
   $artifact_id = undef,
   $group_id    = undef,
